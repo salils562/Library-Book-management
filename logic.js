@@ -17,7 +17,7 @@ function callLocal(){
     }
         let html="";
         obj.forEach((element,index)=>{ 
-            html+=`<tr>
+            html+=`<tr class="getRow">
             <th scope="row">${index+1}</th>
             <td>${element.Book}</td>
             <td>${element.author}</td>
@@ -57,7 +57,7 @@ class Library {
         obj=JSON.parse(obj);
         let html="";
         obj.forEach((element,index)=>{ 
-            html+=`<tr>
+            html+=`<tr class="getRow">
             <th scope="row">${index+1}</th>
             <td>${element.Book}</td>
             <td>${element.author}</td>
@@ -126,3 +126,24 @@ bookObj.splice(id,1);
 localStorage.setItem('books',JSON.stringify(bookObj));
 callLocal();
 }
+let search=document.getElementById('search');
+search.addEventListener('input',()=>{
+    let Books=localStorage.getItem('books');
+    let obj;
+    if(Books===null){
+     obj=[];
+    }
+    else{
+    obj=JSON.parse(Books);
+    }
+    let elements=document.getElementsByClassName('getRow');
+    Array.from(elements).forEach((element)=>{
+        if(element.children[1].innerText.includes(search.value)){
+         element.style.display='block';
+        }
+        else{
+            element.style.display='none';
+        }
+    });
+    
+});
